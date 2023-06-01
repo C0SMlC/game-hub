@@ -1,18 +1,13 @@
 import { useEffect, useState } from 'react';
 import apiClient from '../services/api-client';
 
-interface genre {
-  id: number;
-  name: string;
-}
-
-interface FetchGenreResponse {
+interface FetchResponse<T> {
   count: number;
-  results: genre[];
+  results: T[];
 }
 
-const useGenres = () => {
-  const [genre, setGenre] = useState<genre[]>([]);
+const useData = <T>(endpoint: string) => {
+  const [Data, setData] = useState<T[]>([]);
   const [error, setError] = useState('');
   const [isLoading, setLoading] = useState(false);
 
@@ -21,11 +16,11 @@ const useGenres = () => {
 
     setLoading(true);
     apiClient
-      .get<FetchGenreResponse>('/genres', {
+      .get<FetchResponse<T>>(endpoint, {
         signal: controller.signal,
       })
       .then((res) => {
-        setGenre(res.data.results);
+        setData(res.data.results);
         setLoading(false);
       })
       .catch((err) => {
@@ -36,7 +31,7 @@ const useGenres = () => {
     // return () => controller.abort();
   }, []);
 
-  return { genre, error, isLoading };
+  return { Data, error, isLoading };
 };
 
-export default useGenres;
+export default useData;
