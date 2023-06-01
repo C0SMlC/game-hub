@@ -1,4 +1,3 @@
-import React from 'react';
 import { Game } from '../hooks/useGames';
 import PlatformIconList from './PlatformIconList';
 import CriticScore from './CriticScore';
