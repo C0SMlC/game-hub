@@ -5,8 +5,9 @@ import GenreListSkelton from './GenreListSkelton';
 
 interface props {
   onSelectedGenre: (Genre: Genre) => void;
+  selectedGenre: Genre | null;
 }
-const GenreList = ({ onSelectedGenre }: props) => {
+const GenreList = ({ onSelectedGenre, selectedGenre }: props) => {
   const { Data, isLoading } = useGenres();
 
   if (isLoading) return <GenreListSkelton />;
@@ -26,6 +27,7 @@ const GenreList = ({ onSelectedGenre }: props) => {
               onClick={() => onSelectedGenre(g)}
               fontSize="md"
               variant={'link'}
+              fontWeight={selectedGenre?.id === g.id ? 'bold' : 'normal'}
             >
               {g.name}
             </Button>
