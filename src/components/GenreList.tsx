@@ -18,9 +18,10 @@ const GenreList = ({ onSelectedGenre, selectedGenre }: props) => {
         <ListItem key={g.id} py={2}>
           <HStack spacing={4}>
             <Image
-              boxSize={8}
+              boxSize={8} 
               borderRadius={8}
               src={getCroppedImageUrl(g.image_background)}
+              objectFit="cover"
               alt={g.name}
             />
             <Button
